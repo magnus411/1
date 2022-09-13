@@ -15,6 +15,6 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 # Create your objects here.
 ev3 = EV3Brick()
 
-ev3.speaker.say("asdsdsdsdsdsdsdsdsd")
+ev3.speaker.say("Whats up my fellas from paris")
 # Write your program here.
 ev3.speaker.beep()
