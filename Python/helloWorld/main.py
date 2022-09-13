@@ -16,7 +16,7 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 ev3 = EV3Brick()
 
 ev3.speaker.say("Whats up bitches")
-ev3.speaker.say("Whats up my fsddsellas from paris")
+ev3.speaker.say("Whats up my aaaaaaa from paris")
 
 ev3.speaker.say("Whats up my fellas from paris")
 # Write your program here.
