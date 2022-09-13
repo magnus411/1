@@ -15,10 +15,37 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 # Create your objects here.
 ev3 = EV3Brick()
 
-ev3.speaker.say("Whats up bitches")
-ev3.speaker.say("Whats up my aaaaaaa from paris")
 
-ev3.speaker.say("Whats up my fellas from paris")
+
+
+def run():
+    ev3.screen.print("Hello World!")
+
+    motor_left = Motor(Port.A)
+    motor_right = Motor(Port.B)
+
+    robot = DriveBase(motor_left, motor_right, wheel_diameter=49.6, axle_track=105)
+    robot.settings(1000)
+    robot.straight(300)
+    robot.turn(90)
+
+    robot.straight(300)
+    robot.turn(90)
+
+    robot.straight(300)
+    robot.turn(90)
+
+    robot.straight(300)
+    
+    ev3.speaker.say("Have a nice day")
+
+
+
+
+
 # Write your program here.
 
 ev3.speaker.beep()
+
+
+run()    
