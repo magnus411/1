@@ -32,27 +32,46 @@ ts3 = TouchSensor(Port.S2)
 
 
 drive = False
+done = False
+ev3 = EV3Brick()
+# Write your program here.
+ev3.speaker.beep()
+
 
 while True:
     if ts.pressed() and drive == False:
         drive = True
+        ev3.speaker.say("Exersice two")
 
 
+        
     while drive == True:
 
+        
+
         if ts.pressed() and drive == True:
+            ev3.speaker.say("Exersice Done")
+
             drive = False
 
 
         if us.distance() < 300:
             robot.drive(200, 0)  
+            speed = us.distance()
+
+            if us.distance() <= 100:
+                robot.straight(-300)
+                time.sleep(1)
+                robot.turn(35)
+                robot.drive(1000,0)
+
         else:
             robot.drive(1000, 0)
 
         if ts2.pressed() or ts3.pressed():
             robot.straight(-300)
             time.sleep(1)
-            robot.turn(35)
+            robot.turn(75)
             robot.drive(1000,0)
 
 
@@ -86,8 +105,4 @@ while True:
 
 # 
 # Create your objects here.
-ev3 = EV3Brick()
 
-
-# Write your program here.
-ev3.speaker.beep()
