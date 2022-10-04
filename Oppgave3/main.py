@@ -101,4 +101,13 @@ while(SensObject()):
         ChooseDance(random.randint(1,4))
         last_time = current_time
 
-    
+
+
+def Drive():
+    if (colorSenseR.reflection() < colorConst):
+        robot.drive(speedConst, turnConst)
+    elif(colorSenseL.reflection() < colorConst):
+        robot.drive(speedConst, -turnConst)
+    else:
+        robot.drive(speedConst, 0)
+
