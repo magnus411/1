@@ -25,8 +25,8 @@ ev3 = EV3Brick()
 ev3.speaker.beep()
 
 colorConst = 30
-speedConst = 2
-turnConst = 10
+speedConst = 1.3
+turnConst = 1.5
 
 #Sens max100 min 6
 #Sens max89  min 6
@@ -37,11 +37,13 @@ turnConst = 10
 
 
 def Drive():
-    turnRate =  (colorSenseL.reflection() - colorSenseR.reflection() + 12)
-    driveRate = (colorSenseL.reflection() + colorSenseR.reflection() - 90) * speedConst
+    turnRate =  (colorSenseL.reflection() - colorSenseR.reflection() + 12) * turnConst
+    driveRate = (colorSenseL.reflection() + colorSenseR.reflection()) ** speedConst
 
-    #print(turnRate)
-    robot.drive(driveRate, turnRate)
+    driveRateInt=int(driveRate) 
+
+    print(turnRate)
+    robot.drive(-driveRateInt, turnRate)
 
 
 #
