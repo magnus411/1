@@ -21,8 +21,8 @@ def run():
     motor_x = Motor(Port.A)
     motor_y = Motor(Port.B)
 
-    motor_x.run_target(100, 720, Stop, False)
-    motor_y.run_target(100, 360, Stop, False)
+    motor_x.run_target(100, 720, Stop.HOLD, False)
+    motor_y.run_target(100, 360, Stop.HOLD, False)
 
     time.sleep(1)
     ev3.speaker.say("Have a nice day")
