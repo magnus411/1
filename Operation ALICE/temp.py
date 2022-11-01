@@ -36,7 +36,11 @@ def main():
         pygame.display.flip()
         
 if __name__ == "__main__":
+<<<<<<< HEAD
 
     main()
 
 
+=======
+    main()
+>>>>>>> 140c32f5ba174d412d1192251d42f0a56dbba9b0
