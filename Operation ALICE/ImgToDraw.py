@@ -11,10 +11,10 @@ cv2.imshow('Color image', im)
 print(len(im[0]))
 
 new_arr = []
-for i in im:
-    for j in i:
-        if j < 200:
-            new_arr.append([])
+for i in range(len(im)):
+    for j in range(len(im[i])):
+        if im[i][j] < 200:
+            new_arr.append([i,j])
         else:
             continue
 
