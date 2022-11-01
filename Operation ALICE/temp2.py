@@ -30,26 +30,20 @@ def calibration():
     motor_y.reset_angle(0)
     ev3.speaker.beep()
     time.sleep(2)
-    motor_x.angle(100)
-    motor_y.angle(100)
     ev3.speaker.beep()
+    return [motor_x.angle(), motor_y.angle()]
 
 
 
 def startPoint():
     (0, 0)
 
-def grid():
-    x_min = 0
-    y_min = 0
-    x_max = 2000
-    y_max = 2000
 
-def control(in_x, in_y, x_max, y_max):
-    motor_x.track_target(in_x * x_max)
-    motor_y.track_target(in_y * y_max)
+def control(in_x, in_y, x_local_max, y_local_max):
+    motor_x.track_target(in_x * x_local_max)
+    motor_y.track_target(in_y * y_local_max)
 
-def calibrat():
-    motor_x.angle(340)
-    motor_y.angle(320)
+max_pos = calibration()
+
+control(0.2, 0.7, max_pos[0], max_pos[1])
 
