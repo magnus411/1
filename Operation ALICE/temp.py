@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import pygame, sys
 from pygame.locals import *
 
@@ -36,3 +37,6 @@ def main():
         
 if __name__ == "__main__":
     main()
+=======
+#Test fil for å teste kode
+>>>>>>> 6f96df24f7506b12cad82dbbe2d41204dacea46b
