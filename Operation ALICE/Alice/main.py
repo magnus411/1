@@ -32,21 +32,8 @@ pygame.display.set_caption("ScratchBoard")
 
 def run():
     ev3.screen.print("Hello World!")
+    x = input("test")
     
-    while True:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            
-        mouse_position = pygame.mouse.get_pos()
-        print(mouse_position)
-            
-
-        pygame.display.update()
-        pygame.display.flip()
-
-
     motor_x = Motor(Port.A)
     #motor_y = Motor(Port.B)
 
@@ -56,4 +43,5 @@ def run():
     time.sleep(1)
     ev3.speaker.say("Have a nice day")
 
+    
 run()
