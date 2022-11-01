@@ -1,2 +1,1 @@
-print("MORDI")
-print ("hello world")
+print("yo")
