@@ -18,8 +18,11 @@ ev3 = EV3Brick()
 def run():
     ev3.screen.print("Hello World!")
     
-    motor_left = Motor(Port.A)
-    motor_right = Motor(Port.B)
+    motor_x = Motor(Port.A)
+    motor_y = Motor(Port.B)
+
+    motor_x.run_target(100, 720, Stop, False)
+    motor_y.run_target(100, 360, Stop, False)
 
     time.sleep(1)
     ev3.speaker.say("Have a nice day")
