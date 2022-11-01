@@ -9,24 +9,13 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 import time
 
-import pygame, sys
-from pygame.locals import *
+
 
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 # Click "Open user guide" on the EV3 extension tab for more information.
 
 
 ev3 = EV3Brick()
-pygame.init()
-
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
-mouse_position = (0, 0)
-drawing = False
-screen = pygame.display.set_mode((500, 500), 0, 32)
-screen.fill(WHITE)
-pygame.display.set_caption("ScratchBoard")
 
 
 
