@@ -9,6 +9,9 @@ from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
+import time
+
+ev3 = EV3Brick()
 
 
 motor_x = Motor(Port.A)
@@ -20,6 +23,18 @@ motor_y.positive_direction(right)
 
 motor_x.gears([12, 36])
 motor_y.gears([12, 36])
+
+def calibration():
+    time.sleep(2)
+    motor_x.reset_angle(0)
+    motor_y.reset_angle(0)
+    ev3.speaker.beep()
+    time.sleep(2)
+    motor_x.angle(100)
+    motor_y.angle(100)
+    ev3.speaker.beep()
+
+
 
 def startPoint():
     (0, 0)
