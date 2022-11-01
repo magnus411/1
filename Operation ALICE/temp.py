@@ -1,1 +1,1 @@
-#Test fil for kode
+#Test fil for å teste kode
