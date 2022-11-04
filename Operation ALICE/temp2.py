@@ -1,6 +1,7 @@
 
 from re import X
 from turtle import right
+import pyautogui
 
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
@@ -38,6 +39,9 @@ def calibration():
 def startPoint():
     (0, 0)
 
+maxX = 100
+maxY = 100
+distance =50
 
 def control(in_x, in_y, x_local_max, y_local_max):
     motor_x.track_target(in_x * x_local_max)
@@ -45,5 +49,8 @@ def control(in_x, in_y, x_local_max, y_local_max):
 
 max_pos = calibration()
 
-control(0.2, 0.7, max_pos[0], max_pos[1])
-
+control(distance, 0, maxX, maxY)
+control(0, distance, maxX, maxY)
+distance = -20
+control(distance, 0, maxX, maxY)
+control(0, distance, maxX, maxY)
