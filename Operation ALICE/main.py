@@ -15,16 +15,20 @@ import time
 
 ev3 = EV3Brick()
 
-def run():
-    ev3.screen.print("Hello World!")
-    
+def test():
     motor_x = Motor(Port.A)
-    motor_y = Motor(Port.B)
+    motor_y = Motor(Port.D)
+
+    motor_x.track_target(300)
+    motor_y.track_target(300)
+
+def run():
+    motor_x = Motor(Port.A)
+    motor_y = Motor(Port.D)
+
+    
 
     motor_x.run_target(100, 720, Stop.HOLD, False)
     motor_y.run_target(100, 360, Stop.HOLD, False)
 
-    time.sleep(1)
-    ev3.speaker.say("Have a nice day")
-    
-run()
+test()
