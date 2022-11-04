@@ -31,5 +31,9 @@ def test():
         while motor_y.angle() != y_angle + 360:
             motor_y.track_target(y_angle + 360)
         
-    
-test()
+def calibrate_y():
+    motor_y.reset_angle(0)
+    motor_y.run_until_stalled(100, Stop.HOLD, 15)
+    return motor_y.angle()
+
+print(calibrate_y())
