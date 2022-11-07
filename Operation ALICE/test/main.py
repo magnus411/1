@@ -22,6 +22,10 @@ ev3.speaker.beep()
 motor_x = Motor(Port.A)
 motor_y = Motor(Port.D)
 
+input_x = Motor(Port.B)
+input_y = Motor(Port.C)
+
+
 def test():
     y_angle = motor_y.angle()
     x_angle = motor_x.angle()
@@ -40,4 +44,15 @@ def calibrate_y():
     motor_y.run_until_stalled(100, Stop.HOLD, 15)
     return motor_y.angle()
 
-test()
+def control():
+    motor_x.reset()
+    motor_y.reset()
+    input_x.reset()
+    input_y.reset()
+
+    while True:
+        motor_y.track_target(input_y.angle())
+        motor_x.track_target(input_x.angle())
+
+
+control()
