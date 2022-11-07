@@ -17,18 +17,13 @@ ev3 = EV3Brick()
 motor_x = Motor(Port.A)
 motor_y = Motor(Port.D)
 
-def test():
-    y_angle = motor_y.angle()
-    motor_y.track_target(y_angle + 180)
-    while True:
-        motor_y.track_target(y_angle - 360)
-        motor_y.track_target(y_angle + 360)
-
+#Gets maximum motor x angle
 def calibrate_x():
     motor_x.reset_angle(0)
     motor_x.run_until_stalled(100, Stop.HOLD, 20)
     return motor_x.angle()
 
+#Gets maximum motor y angle
 def calibrate_y():
     motor_y.reset_angle(0)
     motor_y.run_until_stalled(100, Stop.HOLD, 20)
@@ -38,8 +33,8 @@ motor_x_max_angle = calibrate_x()
 motor_y_max_angle = calibrate_y()
 
 def run():
-    mouse_max_value_x = 2000
-    mouse_max_value_y = 2000
+    mouse_max_value_x = 2000 #size of mouse input window x axis
+    mouse_max_value_y = 2000 #size of mouse input window y axis
 
     mouse_input_value_x = input()
     mouse_input_value_y = input()
@@ -50,8 +45,5 @@ def run():
     motor_x.track_target(mouse_input_value_x)
     motor_y.track_target(mouse_input_value_y)
 
-#calibration()
-#while True:
-#    run()
-
-test()
+while True:
+    run()
