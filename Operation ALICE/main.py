@@ -66,4 +66,5 @@ def run():
 #while True:
 #    run()
 
-test()
+autoCalibrate_x()
+autoCalibrate_y()
