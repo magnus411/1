@@ -43,8 +43,8 @@ def autoCalibrate_y():
     motor_y.run_until_stalled(200, Stop.HOLD, 15)
     return motor_y.angle()
 
-#motor_x_max_angle = calibrate_x()
-#motor_y_max_angle = calibrate_y()
+motor_x_max_angle = calibrate_x()
+motor_y_max_angle = calibrate_y()
 
 def run():
     mouse_max_value_x = 2000 #size of mouse input window x axis
@@ -59,8 +59,5 @@ def run():
     motor_x.track_target(mouse_input_value_x)
     motor_y.track_target(mouse_input_value_y)
 
-#while True:
-#    run()
-
-print(autoCalibrate_x())
-print(autoCalibrate_y())
+while True:
+    run()
