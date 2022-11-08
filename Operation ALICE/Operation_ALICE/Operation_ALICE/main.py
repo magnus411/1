@@ -20,17 +20,31 @@ motor_y = Motor(Port.D)
 #Gets maximum motor x angle
 def calibrate_x():
     motor_x.reset_angle(0)
-    motor_x.run_until_stalled(100, Stop.HOLD, 20)
+    motor_x.run_until_stalled(100, Stop.HOLD, 10)
     return motor_x.angle()
 
 #Gets maximum motor y angle
 def calibrate_y():
     motor_y.reset_angle(0)
-    motor_y.run_until_stalled(100, Stop.HOLD, 20)
+    motor_y.run_until_stalled(100, Stop.HOLD, 10)
     return motor_y.angle()
 
-motor_x_max_angle = calibrate_x()
-motor_y_max_angle = calibrate_y()
+#Gets maximum motor x angle and goes to 0,0 automatically
+def autoCalibrate_x():
+    motor_x.run_until_stalled(-200, Stop.HOLD, 15)
+    motor_x.reset_angle(0)
+    motor_x.run_until_stalled(200, Stop.HOLD, 15)
+    return motor_x.angle()
+
+#Gets maximum motor y angle and goes to 0,0 automatically
+def autoCalibrate_y():
+    motor_y.run_until_stalled(-200, Stop.HOLD, 15)
+    motor_y.reset_angle(0)
+    motor_y.run_until_stalled(200, Stop.HOLD, 15)
+    return motor_y.angle()
+
+#motor_x_max_angle = calibrate_x()
+#motor_y_max_angle = calibrate_y()
 
 def run():
     mouse_max_value_x = 2000 #size of mouse input window x axis
@@ -49,3 +63,6 @@ def run():
 
 while True:
     run()
+
+autoCalibrate_x()
+autoCalibrate_y()

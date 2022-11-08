@@ -25,7 +25,7 @@ motor_y.positive_direction(right)
 motor_x.gears([12, 36])
 motor_y.gears([12, 36])
 
-def calibration():
+def manual_calibration():
     time.sleep(2)
     motor_x.reset_angle(0)
     motor_y.reset_angle(0)

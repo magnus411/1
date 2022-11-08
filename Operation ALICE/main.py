@@ -26,12 +26,24 @@ def test():
 
 def calibrate_x():
     motor_x.reset_angle(0)
-    motor_x.run_until_stalled(100, Stop.HOLD, 20)
+    motor_x.run_until_stalled(100, Stop.HOLD, 10)
     return motor_x.angle()
 
 def calibrate_y():
     motor_y.reset_angle(0)
-    motor_y.run_until_stalled(100, Stop.HOLD, 20)
+    motor_y.run_until_stalled(100, Stop.HOLD, 10)
+    return motor_y.angle()
+
+def autoCalibrate_x():
+    motor_x.run_until_stalled(-100, Stop.HOLD, 10)
+    motor_x.reset_angle(0)
+    motor_x.run_until_stalled(100, Stop.HOLD, 10)
+    return motor_x.angle()
+
+def autoCalibrate_y():
+    motor_y.run_until_stalled(-100, Stop.HOLD, 10)
+    motor_y.reset_angle(0)
+    motor_y.run_until_stalled(100, Stop.HOLD, 10)
     return motor_y.angle()
 
 motor_x_max_angle = calibrate_x()
@@ -54,4 +66,5 @@ def run():
 #while True:
 #    run()
 
-test()
+autoCalibrate_x()
+autoCalibrate_y()

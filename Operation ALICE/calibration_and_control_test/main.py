@@ -44,25 +44,38 @@ def calibrate_y():
     return motor_y.angle()
 
 def manual_calibration():
+    motor_x.reset_angle(0)
+    motor_y.reset_angle(0)
+    input_x.reset_angle(0)
+    input_y.reset_angle(0)
+
     start_time = time.time()
-    while time.time()-start_time < 4*1000:
+    while time.time()-start_time < 10:
         motor_x.track_target(input_x.angle())
         motor_y.track_target(input_y.angle())
         print(motor_x.angle(), motor_y.angle())
     motor_x.reset_angle(0)
     motor_y.reset_angle(0)
+    input_x.reset_angle(0)
+    input_y.reset_angle(0)
+    print("DONDONDNDONDEDONDONDENODEODNOENDODNEONDOENOENDOENDOEND")
+    print("DONDONDNDONDEDONDONDENODEODNOENDODNEONDOENOENDOENDOEND")
+    print("DONDONDNDONDEDONDONDENODEODNOENDODNEONDOENOENDOENDOEND")
+    print("DONDONDNDONDEDONDONDENODEODNOENDODNEONDOENOENDOENDOEND")
     ev3.speaker.beep()
-    while time.time()-start_time < 10*1000:
+    while time.time()-start_time < 20:
         motor_x.track_target(input_x.angle())
         motor_y.track_target(input_y.angle())
         print(motor_x.angle(), motor_y.angle())
+
 
     ev3.speaker.beep()
     return [motor_x.angle(), motor_y.angle()]
 
 def control(x_max, y_max):
-    if 100 < input_x.angle() < x_max - 100 and 100 < input_y.angle() < y_max - 100:
+    if 0 < input_x.angle() < x_max:
         motor_x.track_target(input_x.angle())
+    if 0 < input_y.angle() < y_max:
         motor_y.track_target(input_y.angle())
 
 max_values = manual_calibration()
