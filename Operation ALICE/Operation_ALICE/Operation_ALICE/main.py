@@ -45,5 +45,6 @@ def run():
     motor_x.track_target(mouse_input_value_x)
     motor_y.track_target(mouse_input_value_y)
 
+
 while True:
     run()
