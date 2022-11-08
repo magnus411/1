@@ -29,6 +29,20 @@ def calibrate_y():
     motor_y.run_until_stalled(100, Stop.HOLD, 20)
     return motor_y.angle()
 
+#Gets maximum motor x angle and goes to 0,0 automatically
+def autoCalibrate_x():
+    motor_x.run_until_stalled(-100, Stop.HOLD, 20)
+    motor_x.reset_angle(0)
+    motor_x.run_until_stalled(100, Stop.HOLD, 20)
+    return motor_x.angle()
+
+#Gets maximum motor y angle and goes to 0,0 automatically
+def autoCalibrate_y():
+    motor_y.run_until_stalled(-100, Stop.HOLD, 20)
+    motor_y.reset_angle(0)
+    motor_y.run_until_stalled(100, Stop.HOLD, 20)
+    return motor_y.angle()
+
 motor_x_max_angle = calibrate_x()
 motor_y_max_angle = calibrate_y()
 
@@ -45,5 +59,8 @@ def run():
     motor_x.track_target(mouse_input_value_x)
     motor_y.track_target(mouse_input_value_y)
 
-while True:
-    run()
+#while True:
+#    run()
+
+autoCalibrate_x()
+autoCalibrate_y()
