@@ -7,8 +7,7 @@ from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
-import time
-import math
+import time, math, random
 
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 # Click "Open user guide" on the EV3 extension tab for more information.
@@ -37,40 +36,41 @@ def calibrate_y():
 
 #Gets maximum motor x angle and goes to 0,0 automatically
 def autoCalibrate_x():
-    motor_x.run_until_stalled(-300, Stop.HOLD, 20)
+    motor_x.run_until_stalled(-500, Stop.HOLD, 17)
     motor_x.reset_angle(0)
-    motor_x.run_until_stalled(300, Stop.HOLD, 20)
+    motor_x.run_until_stalled(500, Stop.HOLD, 17)
     
     ev3.speaker.beep()
     return motor_x.angle()
 
 #Gets maximum motor y angle and goes to 0,0 automatically
 def autoCalibrate_y():
-    motor_y.run_until_stalled(-300, Stop.HOLD, 20)
+    motor_y.run_until_stalled(-500, Stop.HOLD, 13)
     motor_y.reset_angle(0)
-    motor_y.run_until_stalled(300, Stop.HOLD, 20)
+    motor_y.run_until_stalled(500, Stop.HOLD, 13)
 
     ev3.speaker.beep()
     return motor_y.angle()
 
 def autoCalibrate_z():
+    motor_z.run_until_stalled(100, Stop.HOLD, 30)
     motor_z.reset_angle(0)
-    #motor_z.run_until_stalled(100, Stop.HOLD, 10)
-    t = time.time()
-    while(time.time() - t < 2):
-        motor_z.dc(30)
+    motor_z.run_until_stalled(-100, Stop.HOLD, 30)
 
     ev3.speaker.beep()
     return motor_z.angle()
 
+#Calibrate x and y 
 motor_x_max_angle = autoCalibrate_x()
 motor_y_max_angle = autoCalibrate_y()
 
+#Center x and y
 motor_x.run_target(300, motor_x_max_angle/2, Stop.HOLD, True)
 motor_y.run_target(300, motor_y_max_angle/2, Stop.HOLD, True)
 
+#Calibrate z and send z to startpos
 motor_z_max_angle = autoCalibrate_z()
-motor_z.run_target(300, 0, Stop.HOLD, True)
+motor_z.run_target(100, 0, Stop.HOLD, True)
 
 
 def run():
@@ -86,20 +86,21 @@ def run():
     motor_x.track_target(mouse_input_value_x)
     motor_y.track_target(mouse_input_value_y)
 
-
-#KODE FOR Å TEGNE I EN SIRKEL
-"""
-timer = 0
-while True:
-    if z_button.pressed():
-        motor_z.dc(0)
+def draw(isDraw):
+    if isDraw:
         motor_z.track_target(motor_z_max_angle)
     else:
-        motor_z.dc(30)
+        motor_z.track_target(0)
 
-    motor_x.track_target(math.sin(timer)*200 + motor_x_max_angle/2)
-    motor_y.track_target(math.cos(timer)*200 + motor_y_max_angle/2)
-    timer += 0.005
-    """
+while True:
+    point_x = random.randint(0, motor_x_max_angle)
+    point_y = random.randint(0, motor_y_max_angle)
+
+    while motor_x.angle() != point_x or motor_y.angle() != point_y:
+        motor_x.run_target(300, point_x, Stop.HOLD, False)
+        motor_y.run_target(300, point_y, Stop.HOLD, False)
+        draw(z_button.pressed())
+    
+
 
 
