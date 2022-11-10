@@ -5,7 +5,7 @@ import time
 
 
 
-IP_address = str("10.22.7.63")
+IP_address = str("10.22.6.114")
 Port = int("1024")
 
 def connect():
