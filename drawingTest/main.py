@@ -92,6 +92,14 @@ def draw(isDraw):
     else:
         motor_z.track_target(0)
 
+while True:
+    point_x = random.randint(0, motor_x_max_angle)
+    point_y = random.randint(0, motor_y_max_angle)
+
+    while motor_x.angle() != point_x or motor_y.angle() != point_y:
+        motor_x.run_target(300, point_x, Stop.HOLD, False)
+        motor_y.run_target(300, point_y, Stop.HOLD, False)
+        draw(z_button.pressed())
     
 
 
