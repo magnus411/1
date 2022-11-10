@@ -63,6 +63,8 @@ def autoCalibrate_z():
 #Calibrate x and y 
 motor_x_max_angle = autoCalibrate_x()
 motor_y_max_angle = autoCalibrate_y()
+print(motor_x_max_angle)
+print(motor_y_max_angle)
 
 #Center x and y
 motor_x.run_target(300, motor_x_max_angle/2, Stop.HOLD, True)

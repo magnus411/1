@@ -4,26 +4,23 @@ import sys
 import time
 
 
-
-IP_address = str("169.254.127.126")
+#169.254.127.126
+IP_address = str("10.22.6.114")
 Port = int("1024")
 
 def connect():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.connect((IP_address, 1024))
 
-    try:
-        server.connect((IP_address, Port))
-        #server.send("ping".encode('utf-8'))
-        print("connected")
-
-        text = "Suck my nutzzz"
-        for i in range(10):
-            time.sleep(0.5)
-            server.send(text.encode('utf-8'))
+    while True:
+        try:
+            
+            msg = server.recv(1024).decode('utf-8')
+            print(msg)
 
         
-    except:
-        print("connection failed")
+        except:
+            print("connection failed")
 
 
 

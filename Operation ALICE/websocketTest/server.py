@@ -1,7 +1,10 @@
 import socket
 import select
 import sys
+import time
 
+import pygame, sys
+from pygame.locals import *
 
 
 
@@ -10,41 +13,72 @@ server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 
 
-
+#169.254.162.212
 # takes the first argument from command prompt as IP address
-IP_address = str("169.254.127.126")
+IP_address = str("10.22.6.114")
 
 # takes second argument from command prompt as port number
 Port = int("1024")
 server.bind((IP_address, Port))
 
-"""
-listens for 100 active connections. This number can be
-increased as per convenience.
-"""
-import time
-
+pygame.init()
 server.listen(100)
-list_of_clients = []
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+mouse_position = (0, 0)
+drawing = False
+screen = pygame.display.set_mode((500, 500), 0, 32)
+screen.fill(WHITE)
+pygame.display.set_caption("ScratchBoard")
+
+#X = 620
+#Y = 861
+
+
+
+cordinates = ["200,200","200,400","400,400","400,200","200,200"]
 
 
 conn, addr = server.accept()
+
 while True:
 
+    for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
 
-    
 
-    arr=[]
-    # prints the address of the user that just connected
-    print (addr[0] + " connected")
-    msg = conn.recv(1024).decode('utf-8')
-    print(msg)
-    arr.append(msg)
-    if len(arr) >= 10:
-        break
 
-    # creates and individual thread for every user
-    # that connects
+            elif event.type == MOUSEMOTION:
+                if (drawing):
+                    mouse_position = pygame.mouse.get_pos()
+                    pygame.draw.line(screen, BLACK, mouse_position, mouse_position, 1)
+                    ms = str(mouse_position[0]) + "," + str(mouse_position[1]) + "]"
+
+                    try:
+                        conn.send(mouse_position.encode('utf-8'))
+                        print(ms)
+
+                    
+                    except:
+                        print("connection failed")
+                    
+            elif event.type == MOUSEBUTTONUP:
+                mouse_position = (0, 0)
+                drawing = False
+            elif event.type == MOUSEBUTTONDOWN:
+                drawing = True
+
+
+    pygame.display.update()
+    pygame.display.flip()
+
+
+
+
 
 
 
