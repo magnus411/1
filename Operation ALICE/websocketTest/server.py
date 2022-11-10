@@ -15,14 +15,14 @@ server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 #169.254.162.212
 # takes the first argument from command prompt as IP address
-IP_address = str("10.22.6.114")
+IP_address = str("169.254.229.19")
 
 # takes second argument from command prompt as port number
 Port = int("1024")
 server.bind((IP_address, Port))
 
-pygame.init()
 server.listen(100)
+pygame.init()
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -59,7 +59,7 @@ while True:
                     ms = str(mouse_position[0]) + "," + str(mouse_position[1]) + "]"
 
                     try:
-                        conn.send(mouse_position.encode('utf-8'))
+                        conn.send(ms.encode('utf-8'))
                         print(ms)
 
                     

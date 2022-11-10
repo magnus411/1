@@ -73,6 +73,10 @@ def draw(isDraw):
     else:
         motor_z.track_target(0)
 
+IP_address = str("169.254.229.19")
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.connect((IP_address, 1024))
 
 #Calibrate x and y 
 motor_x_max_angle = autoCalibrate_x()
@@ -87,12 +91,10 @@ motor_y.run_target(300, motor_y_max_angle/2, Stop.HOLD, True)
 motor_z_max_angle = autoCalibrate_z()
 motor_z.run_target(100, 0, Stop.HOLD, True)
 
-IP_address = str("169.254.120.1")
 #Port = int("1024")
 
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.connect((IP_address, 1024))
+
 
 while True:
     
@@ -100,23 +102,17 @@ while True:
     
         msg = server.recv(1024).decode('utf-8')
         time.sleep(0.5)
+        print(msg)
         decode = msg.split(",")
         bracketsplit = decode[1].split("]")
-        
-        intdec = [int(i) for i in decode]
-        print("1" + intdec[0])
-        print("2" + intdec[1])
-        
         print(bracketsplit)
+        #intdec = [int(i) for i in decode]
+        #print("1" + intdec[0])
+        #print("2" + intdec[1])
         
-        while intdec[0] != motor_x.angle() or bracketsplit[0] != motor_y.angle():
-            #draw(True)
-            print("true")
-            if 0 < intdec[0] < motor_x_max_angle:
-                motor_x.track_target(intdec[0])
-            
-            if 0 < bracketsplit[0] < motor_y_max_angle:
-                motor_y.track_target(bracketsplit[0])
+        #print(bracketsplit)
+        
+        
 
         #draw(False)
         
