@@ -73,53 +73,61 @@ def draw(isDraw):
     else:
         motor_z.track_target(0)
 
-IP_address = str("169.254.229.19")
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.connect((IP_address, 1024))
+IP_address = str("169.254.112.32")
+def connection():
+    motor_x_max_angle = autoCalibrate_x()
+    motor_y_max_angle = autoCalibrate_y()
+    print(motor_x_max_angle)
+    print(motor_y_max_angle)
+    #Center x and y
+    motor_x.run_target(300, motor_x_max_angle/2, Stop.HOLD, True)
+    motor_y.run_target(300, motor_y_max_angle/2, Stop.HOLD, True)
 
+    #Calibrate z and send z to startpos
+    motor_z_max_angle = autoCalibrate_z()
+    motor_z.run_target(100, 0, Stop.HOLD, True)
+
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.connect(("169.254.98.236", 1024))
+
+    while True:
+        try:
+            print("Static test")
+            msg = (server.recv(1024).decode('utf-8'))
+
+            motor_z.track_target(motor_z_max_angle)
+            
+            decode = msg.split(",")
+            backsplit = decode[1].split("]")
+            print(backsplit)
+            print(decode)
+            if motor_x_max_angle > int(decode[0]) > 0:
+                motor_x.track_target(int(decode[0]))
+                
+            if motor_y_max_angle > int(backsplit[0]) > 0:
+                motor_y.track_target(int(backsplit[0]))
+
+            
+
+        
+        except:
+            motor_z.track_target(0)
+            print("connection failed")
+
+
+
+connection()
 #Calibrate x and y 
-motor_x_max_angle = autoCalibrate_x()
-motor_y_max_angle = autoCalibrate_y()
-print(motor_x_max_angle)
-print(motor_y_max_angle)
-#Center x and y
-motor_x.run_target(300, motor_x_max_angle/2, Stop.HOLD, True)
-motor_y.run_target(300, motor_y_max_angle/2, Stop.HOLD, True)
 
-#Calibrate z and send z to startpos
-motor_z_max_angle = autoCalibrate_z()
-motor_z.run_target(100, 0, Stop.HOLD, True)
 
 #Port = int("1024")
 
 
 
 
-while True:
     
-    try:
-    
-        msg = server.recv(1024).decode('utf-8')
-        time.sleep(0.5)
-        print(msg)
-        decode = msg.split(",")
-        bracketsplit = decode[1].split("]")
-        print(bracketsplit)
-        #intdec = [int(i) for i in decode]
-        #print("1" + intdec[0])
-        #print("2" + intdec[1])
-        
-        #print(bracketsplit)
-        
-        
 
-        #draw(False)
-        
-    except:
-        print("connection failed")
-
-    
         
 
 def run():

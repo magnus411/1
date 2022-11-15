@@ -15,7 +15,7 @@ server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 #169.254.162.212
 # takes the first argument from command prompt as IP address
-IP_address = str("169.254.229.19")
+IP_address = str("169.254.98.236")
 
 # takes second argument from command prompt as port number
 Port = int("1024")
@@ -56,7 +56,7 @@ while True:
                 if (drawing):
                     mouse_position = pygame.mouse.get_pos()
                     pygame.draw.line(screen, BLACK, mouse_position, mouse_position, 1)
-                    ms = str(mouse_position[0]) + "," + str(mouse_position[1]) + "]"
+                    ms = (str(mouse_position[0]) + "," + str(mouse_position[1]) + "]")
 
                     try:
                         conn.send(ms.encode('utf-8'))

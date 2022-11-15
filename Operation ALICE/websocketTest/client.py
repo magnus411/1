@@ -5,7 +5,7 @@ import time
 
 
 #169.254.127.126
-IP_address = str("10.22.6.114")
+IP_address = str("10.22.6.116")
 Port = int("1024")
 
 def connect():
@@ -16,7 +16,11 @@ def connect():
         try:
             
             msg = server.recv(1024).decode('utf-8')
-            print(msg)
+            #print(msg)
+            decode = msg.split(",")
+            bracketsplit = decode[1].split("]")
+            print(decode[0])
+            #print(bracketsplit)
 
         
         except:
