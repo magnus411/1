@@ -1,6 +1,6 @@
 
 
 
-str=["abc", "def"]
-b = str[1].split("]")
-print(b)
+x = input("magnus")
+
+print(x)

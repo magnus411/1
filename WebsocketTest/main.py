@@ -74,7 +74,6 @@ def draw(isDraw):
         motor_z.track_target(0)
 
 
-IP_address = str("169.254.112.32")
 def connection():
     motor_x_max_angle = autoCalibrate_x()
     motor_y_max_angle = autoCalibrate_y()
@@ -89,7 +88,7 @@ def connection():
     motor_z.run_target(100, 0, Stop.HOLD, True)
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.connect(("169.254.98.236", 1024))
+    server.connect(("169.254.127.159", 1024))
 
     while True:
         try:
@@ -103,7 +102,7 @@ def connection():
             print(backsplit)
             print(decode)
             if motor_x_max_angle > int(decode[0]) > 0:
-                motor_x.track_target(int(decode[0]))
+                motor_x.track_target(int())
                 
             if motor_y_max_angle > int(backsplit[0]) > 0:
                 motor_y.track_target(int(backsplit[0]))
