@@ -8,11 +8,17 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 import time, math, random
+import socket
+import select
+import sys
+import time
+
 
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 # Click "Open user guide" on the EV3 extension tab for more information.
 
 ev3 = EV3Brick()
+
 
 motor_x = Motor(Port.A)
 motor_y = Motor(Port.D)
@@ -45,9 +51,9 @@ def autoCalibrate_x():
 
 #Gets maximum motor y angle and goes to 0,0 automatically
 def autoCalibrate_y():
-    motor_y.run_until_stalled(-500, Stop.HOLD, 13)
+    motor_y.run_until_stalled(-500, Stop.HOLD, 15)
     motor_y.reset_angle(0)
-    motor_y.run_until_stalled(500, Stop.HOLD, 13)
+    motor_y.run_until_stalled(500, Stop.HOLD, 15)
 
     ev3.speaker.beep()
     return motor_y.angle()
@@ -60,22 +66,73 @@ def autoCalibrate_z():
     ev3.speaker.beep()
     return motor_z.angle()
 
+
+def draw(isDraw):
+    if isDraw:
+        motor_z.track_target(motor_z_max_angle)
+    else:
+        motor_z.track_target(0)
+
+
+def connection():
+    motor_x_max_angle = autoCalibrate_x()
+    motor_y_max_angle = autoCalibrate_y()
+    print(motor_x_max_angle)
+    print(motor_y_max_angle)
+    #Center x and y
+    motor_x.run_target(300, motor_x_max_angle/2, Stop.HOLD, True)
+    motor_y.run_target(300, motor_y_max_angle/2, Stop.HOLD, True)
+
+    #Calibrate z and send z to startpos
+    motor_z_max_angle = autoCalibrate_z()
+    motor_z.run_target(100, 0, Stop.HOLD, True)
+
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.connect(("169.254.127.159", 1024))
+
+    while True:
+        try:
+            print("Static test")
+            msg = (server.recv(1024).decode('utf-8'))
+
+            motor_z.track_target(motor_z_max_angle)
+            
+            decode = msg.split(",")
+            backsplit = decode[1].split("]")
+            print(backsplit)
+            print(decode)
+            if motor_x_max_angle > int(decode[0]) > 0:
+                motor_x.track_target(int())
+                
+            if motor_y_max_angle > int(backsplit[0]) > 0:
+                motor_y.track_target(int(backsplit[0]))
+
+            
+
+        
+        except:
+            motor_z.track_target(0)
+            print("connection failed")
+
+
+
+connection()
 #Calibrate x and y 
-motor_x_max_angle = autoCalibrate_x()
-motor_y_max_angle = autoCalibrate_y()
-print(motor_x_max_angle)
-print(motor_y_max_angle)
 
-#Center x and y
-motor_x.run_target(300, motor_x_max_angle/2, Stop.HOLD, True)
-motor_y.run_target(300, motor_y_max_angle/2, Stop.HOLD, True)
 
-#Calibrate z and send z to startpos
-motor_z_max_angle = autoCalibrate_z()
-motor_z.run_target(100, 0, Stop.HOLD, True)
+#Port = int("1024")
 
+
+
+
+    
+
+        
 
 def run():
+
+
+
     mouse_max_value_x = 2000 #size of mouse input window x axis
     mouse_max_value_y = 2000 #size of mouse input window y axis
 

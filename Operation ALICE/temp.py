@@ -1,7 +1,7 @@
 
 import pygame, sys
 from pygame.locals import *
-
+import re
 
 #Kode for å teste tegning og posisjonering av datamus
 def main():
@@ -15,7 +15,7 @@ def main():
     screen = pygame.display.set_mode((500, 500), 0, 32)
     screen.fill(WHITE)
     pygame.display.set_caption("ScratchBoard")
-
+    arr = []
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -25,7 +25,8 @@ def main():
                 if (drawing):
                     mouse_position = pygame.mouse.get_pos()
                     pygame.draw.line(screen, BLACK, mouse_position, mouse_position, 1)
-                    print(mouse_position)
+                    print(mouse_position[0])
+
             elif event.type == MOUSEBUTTONUP:
                 mouse_position = (0, 0)
                 drawing = False
@@ -35,8 +36,6 @@ def main():
         pygame.display.update()
         pygame.display.flip()
         
-if __name__ == "__main__":
-
-    main()
+main()
 
 

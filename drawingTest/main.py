@@ -96,6 +96,10 @@ def draw(isDraw):
 draw(False)
 
 def run():
+
+    
+
+
     mouse_max_value_x = 2000 #size of mouse input window x axis
     mouse_max_value_y = 2000 #size of mouse input window y axis
 
